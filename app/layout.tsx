@@ -3,7 +3,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "MYSER | مُيسّرة — حياة أسهل، مستقبل أذكى",
   description:
-    "منصة سعودية تجريبية موحدة للخدمات الحكومية، مدعومة بالذكاء الاصطناعي. A smarter way to navigate government services.",
+    "مُيسّرة تجمع المنصات الحكومية حسب القطاع، وترتب خطواتك بين الجهات الرسمية. Official platforms by sector, with a clearer service journey.",
 };
 export default function RootLayout({
   children,

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -54,6 +56,7 @@ const stepIcons = [
 const amounts = [200, 150, 500];
 
 export default function Homepage() {
+  const router = useRouter();
   const [lang, setLang] = useState<Lang>("ar");
   const t = copy[lang];
   const ar = lang === "ar";
@@ -138,6 +141,10 @@ export default function Homepage() {
   }, [modal, chatOpen]);
   const direction = ar ? <ArrowLeft size={17} /> : <ArrowRight size={17} />;
   function openServices(index: number | null = null) {
+    if (index === 2) {
+      router.push("/sectors/business");
+      return;
+    }
     setSector(index);
     setService(null);
     setRequest(false);
@@ -984,6 +991,11 @@ export default function Homepage() {
                         onChange={(e) => setQuery(e.target.value)}
                       />
                     </div>
+                    {sector === 2 && (
+                      <Link className="button button-green" href="/business">
+                        {ar ? "رحلة فتح مشروع" : "Start a business journey"}
+                      </Link>
+                    )}
                     <div className="sector-filters">
                       <button
                         className={sector === null ? "selected" : ""}

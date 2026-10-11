@@ -1,13 +1,15 @@
 export default function Brand({
   light = false,
   compact = false,
+  href = "#home",
 }: {
   light?: boolean;
   compact?: boolean;
+  href?: string;
 }) {
   return (
     <a
-      href="#home"
+      href={href}
       className={`brand ${light ? "light" : ""}`}
       aria-label="MYSER | مُيسّرة"
     >

@@ -1,4 +1,4 @@
-import Homepage from "@/components/Homepage";
+import PlatformHome from "@/components/PlatformHome";
 export default function Page() {
-  return <Homepage />;
+  return <PlatformHome />;
 }

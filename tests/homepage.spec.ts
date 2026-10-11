@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test("Arabic-first homepage loads without runtime errors", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
+  await page.goto("/showcase");
   await expect(page.locator("html")).toHaveAttribute("lang", "ar");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
@@ -22,7 +22,7 @@ test("Arabic-first homepage loads without runtime errors", async ({ page }) => {
 test("service search leads to a demo request and modal closes with Escape", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page
     .getByRole("button", { name: "ابدأ الآن", exact: true })
     .first()
@@ -46,7 +46,7 @@ test("service search leads to a demo request and modal closes with Escape", asyn
 test("assistant understands Arabic and guides to traffic services", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page
     .locator(".request-chips")
     .getByRole("button", { name: "أريد تجديد رخصة القيادة" })
@@ -65,7 +65,7 @@ test("assistant understands Arabic and guides to traffic services", async ({
 });
 
 test("English LTR and cross-language assistant work", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page.getByRole("button", { name: "Switch to English" }).click();
   await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
@@ -88,7 +88,7 @@ test("English LTR and cross-language assistant work", async ({ page }) => {
 test("demo payments update wallet total and prevent duplicate payment", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page.locator("#wallet").scrollIntoViewIfNeeded();
   await page
     .locator(".bill")
@@ -108,7 +108,7 @@ test("demo payments update wallet total and prevent duplicate payment", async ({
 test("GovMeet demo joins, toggles controls, shows summary, and leaves", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page
     .getByRole("button", { name: "جرّب GovMeet AI", exact: true })
     .first()
@@ -142,7 +142,7 @@ test("mobile navigation and both languages fit without horizontal overflow", asy
 }) => {
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto("/");
+    await page.goto("/showcase");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -163,13 +163,13 @@ test("mobile navigation and both languages fit without horizontal overflow", asy
     .getByRole("link", { name: "Services", exact: true })
     .click();
   await expect(page.locator("nav")).not.toBeVisible();
-  await expect(page).toHaveURL(/#services$/);
+  await expect(page).toHaveURL(/showcase#services$/);
 });
 
 test("dialog traps keyboard focus and exposes demo privacy notice", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/showcase");
   await page.getByRole("button", { name: "الخصوصية", exact: true }).click();
   const close = page.getByRole("dialog").getByRole("button", { name: "إغلاق" });
   await expect(close).toBeFocused();
