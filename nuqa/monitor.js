@@ -1,0 +1,9 @@
+(()=>{
+ const toggle=document.querySelector('#scan-toggle'),shell=document.querySelector('.monitor-shell'),state=document.querySelector('#scan-state'),clock=document.querySelector('#scan-clock');let running=true;
+ function labels(){toggle.setAttribute('aria-pressed',String(running));toggle.textContent=t(running?'pause':'resume');state.textContent=(running?'● ':'Ⅱ ')+t(running?'running':'paused');refreshAlerts()}
+ function tick(){if(running&&activeRole==='officer')clock.textContent=new Intl.DateTimeFormat(nuqaLocale(),{timeZone:'Asia/Riyadh',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())+' AST'}setInterval(tick,1000);
+ toggle.onclick=()=>{running=!running;shell.classList.toggle('paused',!running);labels();tick()};
+ const types={full:'حاوية تحتاج مراجعة',litter:'تراكم مخلفات'};
+ function refreshAlerts(){let pending=0;document.querySelectorAll('[data-event]').forEach(button=>{const eventId='NQ-CAM-01:'+button.dataset.event;const existing=reports.find(report=>report.demoEvent===eventId);button.disabled=!!existing;button.textContent=existing?t('added')+' · '+existing.id:t('approve')+' ←';if(!existing)pending++});document.querySelector('#review-count').textContent=String(pending).padStart(2,'0')}
+ document.querySelectorAll('[data-event]').forEach(button=>button.onclick=()=>{if(activeRole!=='officer')return;const eventId='NQ-CAM-01:'+button.dataset.event;if(reports.some(report=>report.demoEvent===eventId))return;const id=nextId();reports.unshift({id,type:types[button.dataset.event],location:'NQ-CAM-01',status:'تم الاستلام',demoEvent:eventId});const saved=save();filter.value='all';render();refreshAlerts();notify(t(saved?'saved':'temp')+' · '+id)});document.addEventListener('nuqa:language',()=>{labels();tick()});document.addEventListener('nuqa:role',tick);labels();
+})();
